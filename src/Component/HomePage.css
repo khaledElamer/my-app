@@ -1,0 +1,130 @@
+/* HomePage.css */
+
+/* Sidebar */
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  }
+  
+  .sidebar-menu-button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  color: #555;
+  font-size: 16px;
+  text-align: left;
+  transition: background-color 0.3s ease;
+  }
+  
+  .sidebar-menu-button.active {
+  background-color: #e5e5e5;
+  }
+  
+  .sidebar-menu-button:hover {
+  background-color: #f5f5f5;
+  }
+  
+  /* Main Content */
+  .main-content {
+  flex-grow: 1;
+  padding: 20px;
+  }
+  
+  .topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  background-color: #f0f8ff;
+  }
+  
+  .topbar .pi-angle-double-left,
+  .topbar .pi-angle-double-right {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  }
+  
+  .content-wrapper {
+  margin-top: 20px;
+  }
+  
+  /* TabMenu /
+  .p-tabmenu {
+  background-color: rgba(255, 255, 255, 0.9); / Set background color with opacity /
+  border: 2px solid #add8e6; / Add outline with baby blue color /
+  border-radius: 5px; / Add border radius /
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px; / Increased padding */
+  
+  
+  .p-tabmenu .p-tabmenu-nav li {
+  margin: 0 10px; /* Add margin between tab items */
+  }
+  
+  .p-tabmenu .p-tabmenu-nav li .p-menuitem-link {
+  padding: 5px;
+  color: #555;
+  font-size: 14px; /* Smaller font size */
+  text-decoration: none;
+  transition: color 0.3s ease;
+  }
+  
+  .p-tabmenu .p-tabmenu-nav li .p-menuitem-link.active {
+  color: #000;
+  font-weight: bold; /* Add bold style to active tab */
+  }
+  
+  .p-tabmenu .p-tabmenu-nav li .p-menuitem-link:hover {
+  color: #000;
+  text-decoration: underline; /* Add underline on hover */
+  }
+  
+  /* Tab Content /
+  .home-page-content,
+  .about-us-page-content,
+  .orders-page-content,
+  .order-medication-page-content,
+  .reservation-page-content,
+  .user-page-content,
+  .hospital-page-content,
+  .location-page-content {
+  margin-top: 20px;
+  background-color: transparent; / Remove white background /
+  padding: 20px; / Add padding to tab content /
+  border-radius: 5px; / Add rounded corners to tab content /
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); / Add box shadow to tab content */
+  
+  
+  .fade-in {
+  animation: fade-in 0.5s;
+  }
+  
+  .slide-up {
+  animation: slide-up 0.5s;
+  }
+  
+  @keyframes fade-in {
+  from {
+  opacity: 0;
+  }
+  to {
+  opacity: 1;
+  }
+  }
+  
+  @keyframes slide-up {
+  from {
+  transform: translateY(20px);
+  opacity: 0;
+  }
+  to {
+  transform: translateY(0);
+  opacity: 1;
+  }
+  }

@@ -1,0 +1,42 @@
+.card {
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  .p-datatable-sm .p-datatable-thead > tr > th,
+  .p-datatable-sm .p-datatable-tfoot > tr > td {
+    padding: 0.5rem;
+    font-size: 14px;
+  }
+  
+  .p-datatable-sm .p-datatable-tbody > tr > td {
+    padding: 0.5rem;
+  }
+  
+  .p-datatable-sm .p-paginator {
+    font-size: 14px;
+  }
+  
+  .p-dialog .p-dialog-content .p-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1rem;
+  }
+  
+  .p-dialog .p-fluid .p-field {
+    margin-bottom: 1rem;
+  }
+  
+  .p-dialog .p-fluid .p-inputtext {
+    width: 100%;
+  }
+  
+  .p-dialog .p-dialog-footer .p-button {
+    margin-left: 0.5rem;
+  }
+  
+  .p-invalid .p-inputtext {
+    border-color: #ff0000;
+  }
+  
