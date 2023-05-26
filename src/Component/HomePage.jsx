@@ -7,32 +7,32 @@ import 'primeicons/primeicons.css';
 import './HomePage.css';
 import HospitalComponent from './HospitalComponent';
 import healthcareBackground from './healthcareBackground.jpg';
-
 import { useHistory, useLocation } from 'react-router-dom';
 import AddClinic from './AddClinic';
 import AddHospital from './AddHospital';
+import MedicalComponent from './medicalInsurance';
+import { Galleria } from 'primereact/galleria';
 
 const HomeTab = () => (
   <div className="home-page-content">
     <h2 className="fade-in">Welcome to the Home Page</h2>
     <p className="slide-up">Explore the different sections using the menu items.</p>
-    
+
     <div className="card-container">
       <Card title="Card 1" style={{ width: '300px', margin: '20px' }}>
         <p>Card 1 content</p>
       </Card>
-      
+
       <Card title="Card 2" style={{ width: '300px', margin: '20px' }}>
         <p>Card 2 content</p>
       </Card>
-      
+
       <Card title="Card 3" style={{ width: '300px', margin: '20px' }}>
         <p>Card 3 content</p>
       </Card>
     </div>
   </div>
 );
-
 
 const AboutUsTab = () => (
   <div className="about-us-page-content">
@@ -133,6 +133,9 @@ const HomePage = () => {
     setActiveItem(selectedLabel);
     history.push(`/${selectedLabel.toLowerCase().replace(/\s/g, '')}`);
   };
+  
+
+
   const backgroundStyle = {
     backgroundImage: `url(${healthcareBackground})`,
     backgroundSize: 'cover',
@@ -149,6 +152,7 @@ const HomePage = () => {
       history.push(`/${nextLabel.toLowerCase().replace(/\s/g, '')}`);
     }
   };
+  
 
   const handleSidebarItemClick = (item) => {
     setActiveItem(item.label);
@@ -157,13 +161,13 @@ const HomePage = () => {
   };
 
   const tabMenuItems = [
-    { icon: 'pi pi-pencil', label: 'Home' },
-    { icon: 'pi pi-fw pi-hospital', label: 'Clinics' },
-    { icon: 'pi pi-fw pi-hospital', label: 'Hospital' },
-    { icon: 'pi pi-fw pi-dollar', label: 'Medical Insurance' },
-    { icon: 'pi pi-fw pi-medkit', label: 'Medication' },
-    { icon: 'pi pi-fw pi-tablet', label: 'Pharmacy' },
-    { icon: 'pi pi-fw pi-info', label: 'About Us' },
+    { id: 'home', icon: 'pi pi-pencil', label: 'Home' },
+    {id : 'clinics', icon: 'pi pi-fw pi-hospital', label: 'Clinics' },
+    {id : 'hospital', icon: 'pi pi-fw pi-hospital', label: 'Hospital' },
+    {id :'medicalInsurance', icon: 'pi pi-fw pi-dollar', label: 'Medical Insurance' },
+    {id : 'medication', icon: 'pi pi-fw pi-medkit', label: 'Medication' },
+    {id : 'pharmacy', icon: 'pi pi-fw pi-tablet', label: 'Pharmacy' },
+    {id :'aboutAs', icon: 'pi pi-fw pi-info', label: 'About Us' },
   ];
 
   const sidebarItems = [
@@ -184,6 +188,7 @@ const HomePage = () => {
     Reservation: <ReservationTab />,
     User: <UserTab />,
     Location: <LocationTab />,
+    'Medical Insurance': <MedicalComponent />,
   };
 
   return (
@@ -209,7 +214,7 @@ const HomePage = () => {
           <Button icon={`pi ${sidebarVisible ? 'pi-angle-double-left' : 'pi-angle-double-right'}`} onClick={handleToggleSidebar} />
         </div>
         <div className="content-wrapper" tabIndex="0" onKeyDown={handleKeyDown}>
-          <TabMenu model={tabMenuItems} activeItem={activeItem} onTabChange={handleTabChange} />
+        <TabMenu model={tabMenuItems} activeItem={activeItem} onTabChange={handleTabChange} />
           {tabComponents[activeItem]}
         </div>
       </div>

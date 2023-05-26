@@ -52,15 +52,38 @@
   margin-top: 20px;
   }
   
-  /* TabMenu /
   .p-tabmenu {
-  background-color: rgba(255, 255, 255, 0.9); / Set background color with opacity /
-  border: 2px solid #add8e6; / Add outline with baby blue color /
-  border-radius: 5px; / Add border radius /
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px; / Increased padding */
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #add8e6;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+  
+  .p-tabmenu .p-tabmenu-nav li {
+    margin: 0 10px;
+  }
+  
+  .p-tabmenu .p-tabmenu-nav li .p-menuitem-link {
+    padding: 5px;
+    color: #555;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .p-tabmenu .p-tabmenu-nav li .p-menuitem-link.active {
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .p-tabmenu .p-tabmenu-nav li .p-menuitem-link:hover {
+    color: #000;
+    text-decoration: underline;
+  }
+  
   
   
   .p-tabmenu .p-tabmenu-nav li {
