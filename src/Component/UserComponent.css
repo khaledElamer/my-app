@@ -1,0 +1,51 @@
+/* userComponent.css */
+
+.user-component {
+  width: 400px;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-form {
+  margin-top: 20px;
+}
+
+.p-field label {
+  font-weight: bold;
+}
+
+.p-field .p-inputtext {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+/* Adjust the style for the gender field */
+.p-field .p-dropdown {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.p-button {
+  width: 100%;
+  margin-top: 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.p-button:hover {
+  background-color: #0056b3;
+}

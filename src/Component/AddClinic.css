@@ -7,44 +7,44 @@
   padding: 20px;
 }
 
-h1 {
+.add-clinic-container h1 {
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-.form-container {
+.add-clinic-container .form-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 300px;
 }
 
-.form-group {
+.add-clinic-container .form-group {
   display: flex;
   flex-direction: column;
 }
 
-h3 {
+.add-clinic-container h3 {
   font-size: 16px;
 }
 
-.search-button {
+.add-clinic-container .search-button {
   width: 150px;
   align-self: center;
 }
 
 /* Customize the appearance of the Dropdown component */
-.p-dropdown {
+.add-clinic-container .p-dropdown {
   width: 100%;
 }
 
 /* Customize the appearance of the Checkbox component */
-.p-checkbox .p-checkbox-box {
+.add-clinic-container .p-checkbox .p-checkbox-box {
   width: 16px;
   height: 16px;
 }
 
-.p-checkbox-label {
+.add-clinic-container .p-checkbox-label {
   font-size: 14px;
 }
 
