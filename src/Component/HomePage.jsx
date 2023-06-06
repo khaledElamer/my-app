@@ -19,6 +19,7 @@ import AboutUsComponent from './AboutUsComponent';
 import ReservationComponent from './ReservationComponent';
 import OrderComponent from './OrderComponent';
 import HomeComponent from './HomeComponent';
+import MedicationComponent from './MedicationComponent';
 
 const HomeTab = () => (
   <div className="home-page-content">
@@ -67,6 +68,12 @@ const PharmacyTab = () => (
     <AddPharmacy />
   </div>
 );
+const MedicationTab = () => (
+  <div className="medication-page-content">
+    <MedicationComponent />
+  </div>
+);
+
 
 const HomePage = () => {
   const [sidebarVisible, setSidebarVisible] = useState(false);
@@ -141,7 +148,9 @@ const HomePage = () => {
     { label: 'Reservation', icon: 'pi pi-fw pi-calendar', action: () => handleSidebarItemClick({ label: 'Reservation' }) },
     { label: 'User', icon: 'pi pi-fw pi-user', action: () => handleSidebarItemClick({ label: 'User' }) },
     { label: 'Location', icon: 'pi pi-fw pi-map-marker', action: () => handleSidebarItemClick({ label: 'Location' }) },
+    { label: 'Medication', icon: 'pi pi-fw pi-medkit', action: () => handleSidebarItemClick({ label: 'Medication' }) }, // Add this line
   ];
+  
 
   const tabComponents = {
     Home: <HomeTab />,
@@ -154,7 +163,9 @@ const HomePage = () => {
     Location: <LocationTab />,
     'Medical Insurance': <MedicalComponent />,
     Pharmacy: <PharmacyTab />,
+    Medication: <MedicationTab />,
   };
+  
 
   return (
     <div className="p-grid p-dir-row" style={backgroundStyle}>
