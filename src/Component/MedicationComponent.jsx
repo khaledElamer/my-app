@@ -105,9 +105,7 @@ const MedicationComponent = () => {
   const openNewMedicationDialog = () => {
     setMedication({
       name: '',
-      manufacturer: '',
       price: 0,
-      description: '',
     });
     setNewMedication(true);
     setDisplayDialog(true);
@@ -154,9 +152,7 @@ const MedicationComponent = () => {
         >
           <Column field="id" header="ID" sortable></Column>
           <Column field="name" header="Name" sortable></Column>
-          <Column field="manufacturer" header="Manufacturer"></Column>
           <Column field="price" header="Price" body={formatPrice}></Column>
-          <Column field="description" header="Description"></Column>
         </DataTable>
 
         <div className="p-toolbar">
@@ -203,18 +199,6 @@ const MedicationComponent = () => {
               />
             </div>
 
-            <div className="p-col-4">
-              <label htmlFor="manufacturer">Manufacturer</label>
-            </div>
-            <div className="p-col-8">
-              <InputText
-                id="manufacturer"
-                value={medication?.manufacturer || ''}
-                onChange={(e) =>
-                  setMedication({ ...medication, manufacturer: e.target.value })
-                }
-              />
-            </div>
 
             <div className="p-col-4">
               <label htmlFor="price">Price</label>
@@ -229,18 +213,7 @@ const MedicationComponent = () => {
               />
             </div>
 
-            <div className="p-col-4">
-              <label htmlFor="description">Description</label>
-            </div>
-            <div className="p-col-8">
-              <InputText
-                id="description"
-                value={medication?.description || ''}
-                onChange={(e) =>
-                  setMedication({ ...medication, description: e.target.value })
-                }
-              />
-            </div>
+            
           </div>
 
           <div className="p-dialog-footer">

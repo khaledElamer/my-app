@@ -14,14 +14,14 @@ const OrderComponent = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [medicationName, setMedicationName] = useState('');
-  const [dosage, setDosage] = useState('');
+  // const [dosage, setDosage] = useState('');
   const [quantity, setQuantity] = useState('');
-  const deliveryOptions = [
-    { label: 'Option 1', value: 'option1' },
-    { label: 'Option 2', value: 'option2' },
-    { label: 'Option 3', value: 'option3' }
-  ];
-  const [deliveryOption, setDeliveryOption] = useState(deliveryOptions[0]);
+  // const deliveryOptions = [
+  //   { label: 'Option 1', value: 'option1' },
+  //   { label: 'Option 2', value: 'option2' },
+  //   { label: 'Option 3', value: 'option3' }
+  // ];
+  // const [deliveryOption, setDeliveryOption] = useState(deliveryOptions[0]);
   const [selectedPharmacy, setSelectedPharmacy] = useState(null);
   const [medicationPrice, setMedicationPrice] = useState('');
 
@@ -83,9 +83,7 @@ const OrderComponent = () => {
   const saveOrder = () => {
     const order = {
       medication: medicationName,
-      dosage,
       quantity,
-      deliveryOption,
       pharmacy: selectedPharmacy,
       price: medicationPrice,
     };
@@ -115,9 +113,7 @@ const OrderComponent = () => {
     const updatedOrder = {
       id: selectedOrder.id,
       medication: medicationName,
-      dosage,
       quantity,
-      deliveryOption,
       pharmacy: selectedPharmacy,
       price: medicationPrice,
     };
@@ -150,9 +146,7 @@ const OrderComponent = () => {
   const editOrder = (order) => {
     setSelectedOrder(order);
     setMedicationName(order.medication);
-    setDosage(order.dosage);
     setQuantity(order.quantity);
-    setDeliveryOption(order.deliveryOption);
     setSelectedPharmacy(order.pharmacy);
     setMedicationPrice(order.price);
     setShowConfirmation(true);
@@ -161,9 +155,7 @@ const OrderComponent = () => {
   const clearForm = () => {
     setSelectedOrder(null);
     setMedicationName('');
-    setDosage('');
     setQuantity('');
-    setDeliveryOption(deliveryOptions[0]);
     setSelectedPharmacy(null);
     setMedicationPrice('');
   };
@@ -222,16 +214,7 @@ const OrderComponent = () => {
             />
           </div>
 
-          <div className="p-col-4">
-            <label htmlFor="dosage">Dosage</label>
-          </div>
-          <div className="p-col-8">
-            <InputText
-              id="dosage"
-              value={dosage}
-              onChange={(e) => setDosage(e.target.value)}
-            />
-          </div>
+         
 
           <div className="p-col-4">
             <label htmlFor="quantity">Quantity</label>
@@ -244,18 +227,7 @@ const OrderComponent = () => {
             />
           </div>
 
-          <div className="p-col-4">
-            <label htmlFor="deliveryOption">Delivery Option</label>
-          </div>
-          <div className="p-col-8">
-            <Dropdown
-              id="deliveryOption"
-              options={deliveryOptions}
-              value={deliveryOption}
-              onChange={(e) => setDeliveryOption(e.value)}
-              placeholder="Select Delivery Option"
-            />
-          </div>
+
 
           <div className="p-col-4">
             <label htmlFor="pharmacy">Pharmacy</label>
@@ -296,9 +268,7 @@ const OrderComponent = () => {
 
 <DataTable value={orders}>
   <Column field="medicationName" header="Medication Name" />
-  <Column field="dosage" header="Dosage" />
   <Column field="quantity" header="Quantity" />
-  <Column field="deliveryOption" header="Delivery Option" />
   <Column field="pharmacy.name" header="Pharmacy" />
   <Column field="price" header="Price" />
   <Column
