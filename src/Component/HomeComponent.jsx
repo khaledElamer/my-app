@@ -43,39 +43,48 @@ const HomeComponent = () => {
   }, []);
 
   const itemTemplate = (item) => {
-    return (
-      <div className="item" onClick={() => {
-        setSelectedItem(item);
-        setDisplayDialog(true);
-      }}>
-        {item.name ? (
-          <>
-            <h4>{item.name}</h4>
-            {item.clinicNumber && <p>Clinic Number: {item.clinicNumber}</p>}
-            <p>Address: {item.address}</p>
-            {item.specialization && <p>Specialization: {item.specialization}</p>}
-            {item.phone && <p>Phone: {item.phone}</p>}
-            {item.location && <p>Location: {item.location}</p>}
-          </>
-        ) : item.hospitalName ? (
-          <>
-            <h4>{item.hospitalName}</h4>
-            <p>Hospital Number: {item.hospitalNumber}</p>
+  return (
+    <div className="item" onClick={() => {
+      setSelectedItem(item);
+      setDisplayDialog(true);
+    }}>
+      {item.name ? (
+        <>
+          <h4>{item.name}</h4>
+          {item.clinicNumber && <p>Clinic Number: {item.clinicNumber}</p>}
+          {item.location && item.location.city && (
             <p>Address: {`${item.location.city}, ${item.location.state}, ${item.location.country}`}</p>
-            <p>Available Specialties: {item.availableSpecialties}</p>
-          </>
-        ) : item.pharmacyName ? (
-          <>
-            <h4>{item.pharmacyName}</h4>
-            <p>Address: {item.address}</p>
-            {item.phone && <p>Phone: {item.phone}</p>}
-            {item.location && <p>Location: {item.location}</p>}
-          </>
-        ) : null}
-      </div>
-    );
-  };
+          )}
+          {item.specialization && <p>Specialization: {item.specialization}</p>}
+          {item.phoneNumber && <p>Phone Number: {item.phoneNumber}</p>}
+          {item.phone && <p>Phone: {item.phone}</p>}
+          {item.location && <p>Location: {item.location}</p>}
+          {item.address && <p>Address: {item.address}</p>}
 
+        </>
+      ) : item.hospitalName ? (
+        <>
+          <h4>{item.hospitalName}</h4>
+          <p>Hospital Number: {item.hospitalNumber}</p>
+          {item.location && item.location.city && (
+            <p>Address: {`${item.location.city}, ${item.location.state}, ${item.location.country}`}</p>
+          )}
+          <p>Available Specialties: {item.availableSpecialties}</p>
+          <p>phone number: {item.phoneNumber}</p>
+        </>
+      ) : item.pharmacyName ? (
+        <>
+          <h4>{item.pharmacyName}</h4>
+          {item.location && item.location.city && (
+            <p>Address: {`${item.location.city}, ${item.location.state}, ${item.location.country}`}</p>
+          )}
+          {item.phone && <p>Phone: {item.phone}</p>}
+          {item.location && <p>Location: {item.location}</p>}
+        </>
+      ) : null}
+    </div>
+  );
+};
   const handleFilterChange = (event) => {
     const filterValue = event.target.value.toLowerCase();
     setFilterText(filterValue);
@@ -151,22 +160,28 @@ const HomeComponent = () => {
             <>
               <h2>{selectedItem.name}</h2>
               {selectedItem.clinicNumber && <p>Clinic Number: {selectedItem.clinicNumber}</p>}
-              <p>Address: {selectedItem.address}</p>
+              <p>Address: {selectedItem && selectedItem.location ? `${selectedItem.location.city}, ${selectedItem.location.state}, ${selectedItem.location.country}` : ''}</p>
               {selectedItem.specialization && <p>Specialization: {selectedItem.specialization}</p>}
+              {selectedItem.phoneNumber && <p>Phone Number: {selectedItem.phoneNumber}</p>}
+              {selectedItem.address && <p>Address: {selectedItem.address}</p>}
+
+
             </>
           ) : selectedItem.hospitalName ? (
             <>
               <h2>{selectedItem.hospitalName}</h2>
               <p>Hospital Number: {selectedItem.hospitalNumber}</p>
-              <p>Address: {`${selectedItem.location.city}, ${selectedItem.location.state}, ${selectedItem.location.country}`}</p>
+              <p>Address: {selectedItem && selectedItem.location ? `${selectedItem.location.city}, ${selectedItem.location.state}, ${selectedItem.location.country}` : ''}</p>
               <p>Available Specialties: {selectedItem.availableSpecialties}</p>
+              <p>phone number: {selectedItem.phoneNumber}</p>
+
             </>
           ) : selectedItem.pharmacyName ? (
             <>
               <h2>{selectedItem.pharmacyName}</h2>
-              <p>Address: {selectedItem.address}</p>
               {selectedItem.phone && <p>Phone: {selectedItem.phone}</p>}
               {selectedItem.location && <p>Location: {selectedItem.location}</p>}
+              
             </>
           ) : null}
         </Dialog>

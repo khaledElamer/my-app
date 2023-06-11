@@ -8,7 +8,6 @@ import { Column } from 'primereact/column';
 import axios from 'axios';
 import './ReservationComponent.css';
 
-
 const ReservationComponent = () => {
   const [reservations, setReservations] = useState([]);
   const [reservation, setReservation] = useState({
@@ -19,12 +18,12 @@ const ReservationComponent = () => {
     reservationTime: null,
     medicalRecordNumber: '',
     clinic: null,
+    schedule: null,
     user: null,
   });
   const [genderOptions, setGenderOptions] = useState([]);
   const [clinicOptions, setClinicOptions] = useState([]);
-  
-  
+  const [scheduleOptions, setScheduleOptions] = useState([]);
 
   useEffect(() => {
     fetchAllReservations();
@@ -49,10 +48,16 @@ const ReservationComponent = () => {
         console.error('Error:', error);
       });
 
-    fetch('http://localhost:8090/reservations/clinics') // Assuming an API endpoint that returns available clinics
+    fetch('http://localhost:8090/reservations/clinics')
       .then((response) => response.json())
       .then((data) => {
         setClinicOptions(data.map((clinic) => ({ label: clinic.name, value: clinic })));
+        setScheduleOptions(
+          data.map((clinic) => ({
+            label: clinic.schedule,
+            value: clinic.schedule,
+          }))
+        );
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -71,6 +76,7 @@ const ReservationComponent = () => {
           reservationTime: null,
           medicalRecordNumber: '',
           clinic: null,
+          schedule: null,
           user: null,
         });
         fetchAllReservations();
@@ -98,9 +104,10 @@ const ReservationComponent = () => {
   };
 
   const handleInputChange = (e, field) => {
-    const value = field === 'age' ? e.value : e.target.value; // Handle age field separately
+    const value = field === 'age' ? e.value : e.target.value;
     setReservation({ ...reservation, [field]: value });
   };
+
   const handleDropdownChange = (e, field) => {
     setReservation({ ...reservation, [field]: e.value });
   };
@@ -115,11 +122,21 @@ const ReservationComponent = () => {
         <div className="p-grid">
           <div className="p-col-12 p-md-6">
             <label htmlFor="name">Name</label>
-            <InputText id="name" className="p-inputtext" value={reservation.name} onChange={(e) => handleInputChange(e, 'name')} />
+            <InputText
+              id="name"
+              className="p-inputtext"
+              value={reservation.name}
+              onChange={(e) => handleInputChange(e, 'name')}
+            />
           </div>
           <div className="p-col-12 p-md-6">
             <label htmlFor="age">Age</label>
-            <InputText id="age" className="p-inputtext" value={reservation.age} onChange={(e) => handleInputChange(e, 'age')} />
+            <InputText
+              id="age"
+              className="p-inputtext"
+              value={reservation.age}
+              onChange={(e) => handleInputChange(e, 'age')}
+            />
           </div>
         </div>
 
@@ -137,7 +154,12 @@ const ReservationComponent = () => {
           </div>
           <div className="p-col-12 p-md-6">
             <label htmlFor="address">Address</label>
-            <InputText id="address" className="p-inputtext" value={reservation.address} onChange={(e) => handleInputChange(e, 'address')} />
+            <InputText
+              id="address"
+              className="p-inputtext"
+              value={reservation.address}
+              onChange={(e) => handleInputChange(e, 'address')}
+            />
           </div>
         </div>
 
@@ -175,6 +197,17 @@ const ReservationComponent = () => {
               placeholder="Select a clinic"
             />
           </div>
+          <div className="p-col-12 p-md-6">
+            <label htmlFor="schedule">Schedule</label>
+            <Dropdown
+              id="schedule"
+              className="p-dropdown"
+              value={reservation.schedule}
+              options={scheduleOptions}
+              onChange={(e) => handleDropdownChange(e, 'schedule')}
+              placeholder="Select a schedule"
+            />
+          </div>
         </div>
 
         <Button label="Create Reservation" className="p-button-primary" onClick={createReservation} />
@@ -189,7 +222,7 @@ const ReservationComponent = () => {
           <Column field="address" header="Address" />
           <Column field="reservationTime" header="Reservation Time" />
           <Column field="medicalRecordNumber" header="Medical Record Number" />
-          <Column field="clinic.name" header="Clinic Name" /> {/* Add this column */}
+          <Column field="clinic.name" header="Clinic Name" />
           <Column header="Actions" body={cancelReservationButtonTemplate} />
         </DataTable>
       </div>

@@ -12,6 +12,7 @@ const PharmacyComponent = () => {
   const [pharmacies, setPharmacies] = useState([]);
   const [selectedPharmacy, setSelectedPharmacy] = useState(null);
   const [dialogVisible, setDialogVisible] = useState(false);
+  const [pharmacyId, setPharmacyId] = useState('');
   const [pharmacyName, setPharmacyName] = useState('');
   const [pharmacyAddress, setPharmacyAddress] = useState('');
   const [pharmacyPhone, setPharmacyPhone] = useState('');
@@ -55,7 +56,7 @@ const PharmacyComponent = () => {
 
   const updatePharmacy = () => {
     const updatedPharmacy = {
-      ...selectedPharmacy,
+      id: pharmacyId,
       name: pharmacyName,
       address: pharmacyAddress,
       phone: pharmacyPhone,
@@ -65,7 +66,7 @@ const PharmacyComponent = () => {
 
     if (Object.keys(validationErrors).length === 0) {
       axios
-        .put(`http://localhost:8090/pharmacies/${selectedPharmacy.id}`, updatedPharmacy)
+        .put(`http://localhost:8090/pharmacies/${updatedPharmacy.id}`, updatedPharmacy)
         .then(() => {
           setDialogVisible(false);
           toast.current.show({
@@ -75,7 +76,7 @@ const PharmacyComponent = () => {
           });
           setPharmacies((prevPharmacies) =>
             prevPharmacies.map((pharmacy) =>
-              pharmacy.id === selectedPharmacy.id ? updatedPharmacy : pharmacy
+              pharmacy.id === updatedPharmacy.id ? updatedPharmacy : pharmacy
             )
           );
         })
@@ -121,6 +122,7 @@ const PharmacyComponent = () => {
 
   const openCreateDialog = () => {
     setSelectedPharmacy(null);
+    setPharmacyId('');
     setPharmacyName('');
     setPharmacyAddress('');
     setPharmacyPhone('');
@@ -130,6 +132,7 @@ const PharmacyComponent = () => {
 
   const openEditDialog = (pharmacy) => {
     setSelectedPharmacy(pharmacy);
+    setPharmacyId(pharmacy.id);
     setPharmacyName(pharmacy.name);
     setPharmacyAddress(pharmacy.address);
     setPharmacyPhone(pharmacy.phone);
@@ -164,6 +167,7 @@ const PharmacyComponent = () => {
         />
 
         <DataTable value={pharmacies} className="p-datatable p-datatable-sm">
+          <Column field="id" header="ID"></Column>
           <Column field="name" header="Name" sortable></Column>
           <Column field="address" header="Address" sortable></Column>
           <Column field="phone" header="Phone" sortable></Column>

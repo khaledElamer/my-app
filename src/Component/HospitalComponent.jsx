@@ -14,6 +14,7 @@ const HospitalComponent = () => {
   const [dialogVisible, setDialogVisible] = useState(false);
   const [hospitalNumber, setHospitalNumber] = useState('');
   const [hospitalName, setHospitalName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [hospitalAddress, setHospitalAddress] = useState('');
   const [availableSpecialties, setAvailableSpecialties] = useState('');
   const [errors, setErrors] = useState({});
@@ -32,6 +33,7 @@ const HospitalComponent = () => {
       hospitalName,
       hospitalAddress,
       availableSpecialties,
+      phoneNumber
     };
 
     const validationErrors = validateHospital(hospital);
@@ -61,6 +63,7 @@ const HospitalComponent = () => {
       hospitalName,
       hospitalAddress,
       availableSpecialties,
+      phoneNumber
     };
 
     const validationErrors = validateHospital(updatedHospital);
@@ -117,6 +120,11 @@ const HospitalComponent = () => {
     if (!hospital.availableSpecialties || hospital.availableSpecialties.length === 0) {
       errors.availableSpecialties = 'At least one specialty is required.';
     }
+    
+    if (!hospital.phoneNumber) {
+      errors.phoneNumber = 'phone number is required.';
+    }
+
 
     return errors;
   };
@@ -127,6 +135,7 @@ const HospitalComponent = () => {
     setHospitalName('');
     setHospitalAddress('');
     setAvailableSpecialties('');
+    setPhoneNumber('');
     setErrors({});
     setDialogVisible(true);
   };
@@ -137,6 +146,7 @@ const HospitalComponent = () => {
     setHospitalName(hospital.hospitalName);
     setHospitalAddress(hospital.hospitalAddress);
     setAvailableSpecialties(hospital.availableSpecialties);
+    setPhoneNumber(hospital.phoneNumber);
     setErrors({});
     setDialogVisible(true);
   };
@@ -157,19 +167,32 @@ const HospitalComponent = () => {
       <div className="card">
         <h1>Hospitals</h1>
         <Button label="Create Hospital" icon="pi pi-plus" className="p-button-success" onClick={openCreateDialog} />
-
         <DataTable value={hospitals} className="p-datatable-sm">
-          <Column field="hospitalNumber" header="Hospital Number" sortable></Column>
-          <Column field="hospitalName" header="Name" sortable></Column>
-          <Column field="hospitalAddress" header="Address" sortable></Column>
-          <Column field="availableSpecialties" header="Specialties"></Column>
-          <Column body={(rowData) => (
-            <div>
-              <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => openEditDialog(rowData)} />
-              <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" onClick={() => deleteHospital(rowData.id)} />
-            </div>
-          )}></Column>
-        </DataTable>
+  <Column field="id" header="ID" sortable></Column> 
+  <Column field="hospitalNumber" header="Hospital Number" sortable></Column>
+  <Column field="hospitalName" header="Name" sortable></Column>
+  <Column field="hospitalAddress" header="Address" sortable></Column>
+  <Column field="availableSpecialties" header="Specialties"></Column>
+  <Column field="phoneNumber" header="Phone Number"></Column>
+
+  <Column
+    body={(rowData) => (
+      <div>
+        <Button
+          icon="pi pi-pencil"
+          className="p-button-rounded p-button-success p-mr-2"
+          onClick={() => openEditDialog(rowData)}
+        />
+        <Button
+          icon="pi pi-trash"
+          className="p-button-rounded p-button-danger"
+          onClick={() => deleteHospital(rowData.id)}
+        />
+      </div>
+    )}
+  ></Column>
+</DataTable>
+
       </div>
 
       <Dialog
@@ -224,6 +247,18 @@ const HospitalComponent = () => {
             />
             {errors.availableSpecialties && (
               <small className="p-error">{errors.availableSpecialties}</small>
+            )}
+          </div>
+          <div className="p-field">
+            <label htmlFor="phoneNumber">Phone Number</label>
+            <InputText
+              id="phoneNumber"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className={errors.phoneNumber ? 'p-invalid' : ''}
+            />
+            {errors.phoneNumber && (
+              <small className="p-error">{errors.phoneNumber}</small>
             )}
           </div>
         </div>

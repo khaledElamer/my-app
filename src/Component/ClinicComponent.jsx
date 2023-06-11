@@ -17,6 +17,8 @@ const ClinicComponent = () => {
   const [address, setAddress] = useState('');
   const [specialization, setSpecialization] = useState('');
   const [schedule, setSchedule] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
 
   const [clinicServices, setClinicServices] = useState('');
   const [errors, setErrors] = useState({});
@@ -36,6 +38,7 @@ const ClinicComponent = () => {
       address,
       specialization,
       schedule,
+      phoneNumber
     };
 
     const validationErrors = validateClinic(clinic);
@@ -66,6 +69,7 @@ const ClinicComponent = () => {
       address,
       specialization,
       schedule,
+      phoneNumber
     };
 
     const validationErrors = validateClinic(updatedClinic);
@@ -126,6 +130,9 @@ const ClinicComponent = () => {
     if (!clinic.schedule) {
       errors.schedule = 'Schedule is required.';
     }
+    if(!clinic.phoneNumber) {
+      errors.phoneNumber ='phoneNumber is required'
+    }
 
     return errors;
   };
@@ -137,6 +144,7 @@ const ClinicComponent = () => {
     setAddress('');
     setSpecialization('');
     setSchedule('');
+    setPhoneNumber('')
     setErrors({});
     setDialogVisible(true);
   };
@@ -148,6 +156,7 @@ const ClinicComponent = () => {
     setAddress(clinic.address);
     setSpecialization(clinic.specialization);
     setSchedule(clinic.schedule);
+    setPhoneNumber(clinic.phoneNumber)
     setErrors({});
     setDialogVisible(true);
   };
@@ -170,11 +179,14 @@ const ClinicComponent = () => {
         <Button label="Create Clinic" icon="pi pi-plus" className="p-button-success" onClick={openCreateDialog} />
 
         <DataTable value={clinics} className="p-datatable-sm">
+        <Column field="id" header="ID" sortable></Column> 
           <Column field="clinicNumber" header="Clinic Number" sortable></Column>
           <Column field="name" header="Name" sortable></Column>
           <Column field="address" header="Address" sortable></Column>
           <Column field="specialization" header="Specialization"></Column>
           <Column field="schedule" header="Schedule"></Column>
+          <Column field="phoneNumber" header="Phone Number"></Column>
+
 
           <Column body={(rowData) => (
             <div>
@@ -252,6 +264,16 @@ const ClinicComponent = () => {
             )}
           </div>
         </div>
+        <div className="p-field">
+            <label htmlFor="name">phone Number</label>
+            <InputText
+              id="name"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              className={errors.phoneNumber ? 'p-invalid' : ''}
+            />
+            {errors.phoneNumber && <small className="p-error">{errors.phoneNumber}</small>}
+          </div>
       </Dialog>
 
       <Toast ref={toast} />
