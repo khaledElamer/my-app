@@ -16,6 +16,7 @@ const HospitalComponent = () => {
   const [hospitalName, setHospitalName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [hospitalAddress, setHospitalAddress] = useState('');
+  const [availableServices , setAvailableServices] = useState('');
   const [availableSpecialties, setAvailableSpecialties] = useState('');
   const [errors, setErrors] = useState({});
   const toast = useRef(null);
@@ -33,7 +34,8 @@ const HospitalComponent = () => {
       hospitalName,
       hospitalAddress,
       availableSpecialties,
-      phoneNumber
+      phoneNumber,
+      availableServices
     };
 
     const validationErrors = validateHospital(hospital);
@@ -63,7 +65,8 @@ const HospitalComponent = () => {
       hospitalName,
       hospitalAddress,
       availableSpecialties,
-      phoneNumber
+      phoneNumber,
+      availableServices
     };
 
     const validationErrors = validateHospital(updatedHospital);
@@ -124,6 +127,9 @@ const HospitalComponent = () => {
     if (!hospital.phoneNumber) {
       errors.phoneNumber = 'phone number is required.';
     }
+    if (!hospital.availableServices || hospital.availableServices.length === 0) {
+      errors.availableServices = 'At least one service is required.';
+    }
 
 
     return errors;
@@ -136,6 +142,7 @@ const HospitalComponent = () => {
     setHospitalAddress('');
     setAvailableSpecialties('');
     setPhoneNumber('');
+    setAvailableServices('')
     setErrors({});
     setDialogVisible(true);
   };
@@ -146,6 +153,7 @@ const HospitalComponent = () => {
     setHospitalName(hospital.hospitalName);
     setHospitalAddress(hospital.hospitalAddress);
     setAvailableSpecialties(hospital.availableSpecialties);
+    setAvailableServices(hospital.availableServices);
     setPhoneNumber(hospital.phoneNumber);
     setErrors({});
     setDialogVisible(true);
@@ -174,6 +182,8 @@ const HospitalComponent = () => {
   <Column field="hospitalAddress" header="Address" sortable></Column>
   <Column field="availableSpecialties" header="Specialties"></Column>
   <Column field="phoneNumber" header="Phone Number"></Column>
+  <Column field="availableServices" header="Available Services"></Column>
+
 
   <Column
     body={(rowData) => (
@@ -259,6 +269,18 @@ const HospitalComponent = () => {
             />
             {errors.phoneNumber && (
               <small className="p-error">{errors.phoneNumber}</small>
+            )}
+          </div>
+          <div className="p-field">
+            <label htmlFor="availableServices">Available Services</label>
+            <InputText
+              id="availableServices"
+              value={availableServices}
+              onChange={(e) => setAvailableServices(e.target.value)}
+              className={errors.availableServices ? 'p-invalid' : ''}
+            />
+            {errors.availableServices && (
+              <small className="p-error">{errors.availableServices}</small>
             )}
           </div>
         </div>

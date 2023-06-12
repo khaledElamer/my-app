@@ -70,6 +70,7 @@ const HomeComponent = () => {
             <p>Address: {`${item.location.city}, ${item.location.state}, ${item.location.country}`}</p>
           )}
           <p>Available Specialties: {item.availableSpecialties}</p>
+          <p>Available Services: {item.availableServices}</p>
           <p>phone number: {item.phoneNumber}</p>
         </>
       ) : item.pharmacyName ? (
@@ -174,6 +175,8 @@ const HomeComponent = () => {
               <p>Address: {selectedItem && selectedItem.location ? `${selectedItem.location.city}, ${selectedItem.location.state}, ${selectedItem.location.country}` : ''}</p>
               <p>Available Specialties: {selectedItem.availableSpecialties}</p>
               <p>phone number: {selectedItem.phoneNumber}</p>
+              <p>Available Services: {selectedItem.availableServices}</p>
+
 
             </>
           ) : selectedItem.pharmacyName ? (

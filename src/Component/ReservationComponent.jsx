@@ -20,6 +20,7 @@ const ReservationComponent = () => {
     clinic: null,
     schedule: null,
     user: null,
+    phoneNumber : 0
   });
   const [genderOptions, setGenderOptions] = useState([]);
   const [clinicOptions, setClinicOptions] = useState([]);
@@ -78,6 +79,7 @@ const ReservationComponent = () => {
           clinic: null,
           schedule: null,
           user: null,
+          phoneNumber :'01'
         });
         fetchAllReservations();
       })
@@ -136,6 +138,15 @@ const ReservationComponent = () => {
               className="p-inputtext"
               value={reservation.age}
               onChange={(e) => handleInputChange(e, 'age')}
+            />
+          </div>
+          <div className="p-col-12 p-md-6">
+            <label htmlFor="phoneNumber">Phone Number</label>
+            <InputText
+              id="phoneNumber"
+              className="p-inputtext"
+              value={reservation.phoneNumber}
+              onChange={(e) => handleInputChange(e, 'phoneNumber')}
             />
           </div>
         </div>
@@ -221,6 +232,7 @@ const ReservationComponent = () => {
           <Column field="gender" header="Gender" />
           <Column field="address" header="Address" />
           <Column field="reservationTime" header="Reservation Time" />
+          <Column field="phoneNumber" header="Phone Number" />
           <Column field="medicalRecordNumber" header="Medical Record Number" />
           <Column field="clinic.name" header="Clinic Name" />
           <Column header="Actions" body={cancelReservationButtonTemplate} />
