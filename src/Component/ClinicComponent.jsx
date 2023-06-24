@@ -9,6 +9,7 @@ import axios from 'axios';
 import './clinicComponent.css';
 
 const ClinicComponent = () => {
+  // Component state variables
   const [clinics, setClinics] = useState([]);
   const [selectedClinic, setSelectedClinic] = useState(null);
   const [dialogVisible, setDialogVisible] = useState(false);
@@ -18,12 +19,11 @@ const ClinicComponent = () => {
   const [specialization, setSpecialization] = useState('');
   const [schedule, setSchedule] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-
-
   const [clinicServices, setClinicServices] = useState('');
   const [errors, setErrors] = useState({});
   const toast = useRef(null);
 
+  // Fetch clinics data from the server
   useEffect(() => {
     axios
       .get('http://localhost:8090/clinics')
@@ -31,7 +31,9 @@ const ClinicComponent = () => {
       .catch((error) => console.error(error));
   }, []);
 
+  // Create a new clinic
   const createClinic = () => {
+    // Clinic object
     const clinic = {
       clinicNumber,
       name,
@@ -41,9 +43,11 @@ const ClinicComponent = () => {
       phoneNumber
     };
 
+    // Validate clinic
     const validationErrors = validateClinic(clinic);
 
     if (Object.keys(validationErrors).length === 0) {
+      // Send POST request to the server to create a new clinic
       axios
         .post('http://localhost:8090/clinics', clinic)
         .then((response) => {
@@ -61,7 +65,9 @@ const ClinicComponent = () => {
     }
   };
 
+  // Update an existing clinic
   const updateClinic = () => {
+    // Updated clinic object
     const updatedClinic = {
       ...selectedClinic,
       clinicNumber,
@@ -72,9 +78,11 @@ const ClinicComponent = () => {
       phoneNumber
     };
 
+    // Validate updated clinic
     const validationErrors = validateClinic(updatedClinic);
 
     if (Object.keys(validationErrors).length === 0) {
+      // Send PUT request to the server to update the clinic
       axios
         .put(`http://localhost:8090/clinics/${selectedClinic.id}`, updatedClinic)
         .then(() => {
@@ -94,7 +102,9 @@ const ClinicComponent = () => {
     }
   };
 
+  // Delete a clinic
   const deleteClinic = (clinicId) => {
+    // Send DELETE request to the server to delete the clinic
     axios
       .delete(`http://localhost:8090/clinics/${clinicId}`)
       .then(() => {
@@ -108,6 +118,7 @@ const ClinicComponent = () => {
       .catch((error) => console.error(error));
   };
 
+  // Validate clinic data
   const validateClinic = (clinic) => {
     const errors = {};
 
@@ -130,13 +141,15 @@ const ClinicComponent = () => {
     if (!clinic.schedule) {
       errors.schedule = 'Schedule is required.';
     }
-    if(!clinic.phoneNumber) {
-      errors.phoneNumber ='phoneNumber is required'
+
+    if (!clinic.phoneNumber) {
+      errors.phoneNumber = 'Phone number is required.';
     }
 
     return errors;
   };
 
+  // Open the dialog for creating a new clinic
   const openCreateDialog = () => {
     setSelectedClinic(null);
     setClinicNumber('');
@@ -144,11 +157,12 @@ const ClinicComponent = () => {
     setAddress('');
     setSpecialization('');
     setSchedule('');
-    setPhoneNumber('')
+    setPhoneNumber('');
     setErrors({});
     setDialogVisible(true);
   };
 
+  // Open the dialog for editing an existing clinic
   const openEditDialog = (clinic) => {
     setSelectedClinic(clinic);
     setClinicNumber(clinic.clinicNumber);
@@ -156,15 +170,17 @@ const ClinicComponent = () => {
     setAddress(clinic.address);
     setSpecialization(clinic.specialization);
     setSchedule(clinic.schedule);
-    setPhoneNumber(clinic.phoneNumber)
+    setPhoneNumber(clinic.phoneNumber);
     setErrors({});
     setDialogVisible(true);
   };
 
+  // Hide the dialog
   const hideDialog = () => {
     setDialogVisible(false);
   };
 
+  // Dialog footer JSX
   const clinicDialogFooter = (
     <>
       <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
@@ -172,6 +188,7 @@ const ClinicComponent = () => {
     </>
   );
 
+  // Render the component
   return (
     <div>
       <div className="card">
@@ -179,21 +196,21 @@ const ClinicComponent = () => {
         <Button label="Create Clinic" icon="pi pi-plus" className="p-button-success" onClick={openCreateDialog} />
 
         <DataTable value={clinics} className="p-datatable-sm">
-        <Column field="id" header="ID" sortable></Column> 
+          <Column field="id" header="ID" sortable></Column>
           <Column field="clinicNumber" header="Clinic Number" sortable></Column>
           <Column field="name" header="Name" sortable></Column>
           <Column field="address" header="Address" sortable></Column>
           <Column field="specialization" header="Specialization"></Column>
           <Column field="schedule" header="Schedule"></Column>
           <Column field="phoneNumber" header="Phone Number"></Column>
-
-
-          <Column body={(rowData) => (
-            <div>
-              <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => openEditDialog(rowData)} />
-              <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" onClick={() => deleteClinic(rowData.id)} />
-            </div>
-          )}></Column>
+          <Column
+            body={(rowData) => (
+              <div>
+                <Button icon="pi pi-pencil" className="p-button-rounded p-button-success p-mr-2" onClick={() => openEditDialog(rowData)} />
+                <Button icon="pi pi-trash" className="p-button-rounded p-button-danger" onClick={() => deleteClinic(rowData.id)} />
+              </div>
+            )}
+          ></Column>
         </DataTable>
       </div>
 
@@ -263,17 +280,19 @@ const ClinicComponent = () => {
               <small className="p-error">{errors.schedule}</small>
             )}
           </div>
-        </div>
-        <div className="p-field">
-            <label htmlFor="name">phone Number</label>
+          <div className="p-field">
+            <label htmlFor="phoneNumber">Phone Number</label>
             <InputText
-              id="name"
+              id="phoneNumber"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               className={errors.phoneNumber ? 'p-invalid' : ''}
             />
-            {errors.phoneNumber && <small className="p-error">{errors.phoneNumber}</small>}
+            {errors.phoneNumber && (
+              <small className="p-error">{errors.phoneNumber}</small>
+            )}
           </div>
+        </div>
       </Dialog>
 
       <Toast ref={toast} />

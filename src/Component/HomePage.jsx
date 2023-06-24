@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TabMenu, Card, Sidebar, Button } from 'primereact';
+import { TabMenu, Card, Sidebar, Button } from 'primereact'; // Import necessary components from 'primereact'
 import ClinicComponent from './ClinicComponent';
 import 'primereact/resources/primereact.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
@@ -21,77 +21,90 @@ import OrderComponent from './OrderComponent';
 import HomeComponent from './HomeComponent';
 import MedicationComponent from './MedicationComponent';
 
+// Define the HomeTab component
 const HomeTab = () => (
   <div className="home-page-content">
     <HomeComponent />
   </div>
 );
 
+// Define the AboutUsTab component
 const AboutUsTab = () => (
   <div className="about-us-page-content">
     <AboutUsComponent />
   </div>
 );
 
+// Define the OrdersTab component
 const OrdersTab = () => (
   <div className="orders-page-content">
     <OrderComponent />
   </div>
 );
 
+// Define the ReservationTab component
 const ReservationTab = () => (
   <div className="reservation-page-content">
     <ReservationComponent />
   </div>
 );
 
+// Define the UserTab component
 const UserTab = () => (
   <div className="user-page-content">
     <UserComponent />
   </div>
 );
 
+// Define the HospitalTab component
 const HospitalTab = () => (
   <div className="hospital-page-content">
     <AddHospital />
   </div>
 );
 
+// Define the LocationTab component
 const LocationTab = () => (
   <div className="location-page-content">
     <LocationComponent />
   </div>
 );
 
+// Define the PharmacyTab component
 const PharmacyTab = () => (
   <div className="pharmacy-page-content">
     <AddPharmacy />
   </div>
 );
+
+// Define the MedicationTab component
 const MedicationTab = () => (
   <div className="medication-page-content">
     <MedicationComponent />
   </div>
 );
 
-
+// Define the HomePage component
 const HomePage = () => {
-  const [sidebarVisible, setSidebarVisible] = useState(false);
-  const [activeItem, setActiveItem] = useState('Home');
-  const [subscribedClinics, setSubscribedClinics] = useState([]);
-  const [subscribedHospitals, setSubscribedHospitals] = useState([]);
-  const history = useHistory();
-  const location = useLocation();
+  const [sidebarVisible, setSidebarVisible] = useState(false); // State variable to track sidebar visibility
+  const [activeItem, setActiveItem] = useState('Home'); // State variable to track the active tab
+  const [subscribedClinics, setSubscribedClinics] = useState([]); // State variable for subscribed clinics
+  const [subscribedHospitals, setSubscribedHospitals] = useState([]); // State variable for subscribed hospitals
+  const history = useHistory(); // History object for navigation
+  const location = useLocation(); // Location object to get the current path
 
+  // Update active tab when the path changes
   useEffect(() => {
     const selectedTab = location.pathname.replace('/', '');
     setActiveItem(selectedTab || 'Home');
   }, [location]);
 
+  // Toggle the sidebar visibility
   const handleToggleSidebar = () => {
     setSidebarVisible((prevState) => !prevState);
   };
 
+  // Handle tab change event
   const handleTabChange = (event) => {
     const selectedTab = event.value.label;
     setActiveItem(selectedTab);
@@ -103,12 +116,14 @@ const HomePage = () => {
     }
   };
 
+  // Style for the background image
   const backgroundStyle = {
     backgroundImage: `url(${healthcareBackground})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   };
 
+  // Handle keydown event
   const handleKeyDown = (event) => {
     if (event.key === 'ArrowRight') {
       event.preventDefault();
@@ -128,12 +143,14 @@ const HomePage = () => {
     }
   };
 
+  // Handle sidebar item click
   const handleSidebarItemClick = (item) => {
     setActiveItem(item.label);
     setSidebarVisible(false);
     history.push(`/${item.label.toLowerCase().replace(/\s/g, '')}`);
   };
 
+  // Define the tab menu items
   const tabMenuItems = [
     { id: 'home', icon: 'pi pi-pencil', label: 'Home' },
     { id: 'clinics', icon: 'pi pi-fw pi-hospital', label: 'Clinics' },
@@ -143,15 +160,16 @@ const HomePage = () => {
     { id: 'aboutAs', icon: 'pi pi-fw pi-info', label: 'About Us' },
   ];
 
+  // Define the sidebar items
   const sidebarItems = [
     { label: 'Orders', icon: 'pi pi-fw pi-file', action: () => handleSidebarItemClick({ label: 'Orders' }) },
     { label: 'Reservation', icon: 'pi pi-fw pi-calendar', action: () => handleSidebarItemClick({ label: 'Reservation' }) },
     { label: 'User', icon: 'pi pi-fw pi-user', action: () => handleSidebarItemClick({ label: 'User' }) },
     { label: 'Location', icon: 'pi pi-fw pi-map-marker', action: () => handleSidebarItemClick({ label: 'Location' }) },
-    { label: 'Medication', icon: 'pi pi-fw pi-medkit', action: () => handleSidebarItemClick({ label: 'Medication' }) }, // Add this line
+    { label: 'Medication', icon: 'pi pi-fw pi-medkit', action: () => handleSidebarItemClick({ label: 'Medication' }) },
   ];
-  
 
+  // Define the components for each tab
   const tabComponents = {
     Home: <HomeTab />,
     'About Us': <AboutUsTab />,
@@ -165,7 +183,6 @@ const HomePage = () => {
     Pharmacy: <PharmacyTab />,
     Medication: <MedicationTab />,
   };
-  
 
   return (
     <div className="p-grid p-dir-row" style={backgroundStyle}>

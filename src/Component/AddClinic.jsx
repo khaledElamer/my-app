@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import ClinicComponent from './ClinicComponent';
 import './AddClinic.css';
 
+// Define the available countries, governorates, specialists, and clinics
 const countries = [
   { name: 'Country 1', code: 'C1' },
   { name: 'Country 2', code: '2' },
@@ -31,6 +32,7 @@ const clinics = [
 ];
 
 const AddClinic = () => {
+  // State variables to store the selected values and toggle the clinic component
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedGovernorate, setSelectedGovernorate] = useState(null);
   const [selectedSpecialist, setSelectedSpecialist] = useState(null);
@@ -38,9 +40,11 @@ const AddClinic = () => {
   const [hasInsurance, setHasInsurance] = useState(false);
   const [showClinicComponent, setShowClinicComponent] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const history = useHistory();
 
   const handleSearch = () => {
+    // Check if all fields are filled before searching
     if (!selectedCountry || !selectedGovernorate || !selectedSpecialist || !selectedClinic) {
       alert('Please fill in all the fields before searching.'); // Display alert using the native alert function
       return;
@@ -57,6 +61,7 @@ const AddClinic = () => {
     }, 2000);
   };
 
+  // Render the clinic component if showClinicComponent is true
   if (showClinicComponent) {
     return <ClinicComponent />;
   }

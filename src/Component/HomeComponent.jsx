@@ -5,7 +5,9 @@ import { Dialog } from 'primereact/dialog';
 import 'primeflex/primeflex.css';
 import './HomeComponent.css'; // Import the CSS file
 
+// Define the HomeComponent component
 const HomeComponent = () => {
+    // State variables
   const [clinics, setClinics] = useState([]);
   const [hospitals, setHospitals] = useState([]);
   const [pharmacies, setPharmacies] = useState([]);
@@ -13,7 +15,9 @@ const HomeComponent = () => {
   const [filterText, setFilterText] = useState('');
   const [displayDialog, setDisplayDialog] = useState(false);
 
+      // Fetch data from APIs when the component mounts
   useEffect(() => {
+        // Fetch clinics
     fetch('http://localhost:8090/clinics')
       .then(response => response.json())
       .then(data => {
@@ -22,7 +26,7 @@ const HomeComponent = () => {
         }
       })
       .catch(error => console.log(error));
-
+          // Fetch hospitals
     fetch('http://localhost:8090/hospitals')
       .then(response => response.json())
       .then(data => {
@@ -31,7 +35,7 @@ const HomeComponent = () => {
         }
       })
       .catch(error => console.log(error));
-
+            // Fetch pharmacies
     fetch('http://localhost:8090/pharmacies')
       .then(response => response.json())
       .then(data => {
@@ -41,7 +45,7 @@ const HomeComponent = () => {
       })
       .catch(error => console.log(error));
   }, []);
-
+    // Function to render individual items in the order list
   const itemTemplate = (item) => {
   return (
     <div className="item" onClick={() => {
@@ -86,24 +90,28 @@ const HomeComponent = () => {
     </div>
   );
 };
+    // Function to handle filter input change
   const handleFilterChange = (event) => {
+        // Update the filter text state
     const filterValue = event.target.value.toLowerCase();
     setFilterText(filterValue);
   };
-
+    // Filter clinics based on the filter text
   const filteredClinics = clinics.filter(clinic =>
     clinic.name.toLowerCase().includes(filterText)
   );
-
+      // Filter hospitals based on the filter text
   const filteredHospitals = hospitals.filter(hospital =>
     hospital.hospitalName.toLowerCase().includes(filterText)
   );
-
+  // Filter pharmacies based on the filter text
   const filteredPharmacies = pharmacies.filter(pharmacy =>
     pharmacy.name.toLowerCase().includes(filterText)
   );
 
+  // Function to render the clinics order list
   const renderClinics = () => {
+        // Render the clinics order list if there are filtered clinics
     if (filteredClinics.length > 0) {
       return (
         <div className="orderlist-section">
@@ -117,8 +125,9 @@ const HomeComponent = () => {
     }
     return null;
   };
-
+    // Function to render the hospitals order list
   const renderHospitals = () => {
+        // Render the hospitals order list if there are filtered hospitals
     if (filteredHospitals.length > 0) {
       return (
         <div className="orderlist-section">
@@ -132,8 +141,9 @@ const HomeComponent = () => {
     }
     return null;
   };
-
+  // Function to render the pharmacies order list
   const renderPharmacies = () => {
+        // Render the pharmacies order list if there are filtered pharmacies
     if (filteredPharmacies.length > 0) {
       return (
         <div className="orderlist-section">
@@ -147,13 +157,15 @@ const HomeComponent = () => {
     }
     return null;
   };
-
+  // Function to handle hiding the dialog 
   const onHideDialog = () => {
+        // Reset the selected item and dialog display
     setSelectedItem(null);
     setDisplayDialog(false);
   };
-
+  // Function to render the details of the selected item in a dialog
   const renderSelectedItemDetails = () => {
+        // Render the selected item details in a dialog if there is a selected item
     if (selectedItem) {
       return (
         <Dialog visible={displayDialog} onHide={onHideDialog}>
@@ -192,7 +204,7 @@ const HomeComponent = () => {
     }
     return null;
   };
-
+  // Render the HomeComponent JSX
   return (
     <div className="home-page-content">
       <h2 className="fade-in">Welcome to the Home Page</h2>
